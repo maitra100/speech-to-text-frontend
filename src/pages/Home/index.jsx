@@ -1,39 +1,28 @@
 import React, {useState} from "react";
 import axios from 'axios';
+import './style.css';
+import KTdoc from '../../components/KTdoc'
+import ContractChecker from "../../components/ContractChecker";
 
 
 function Home() {
-    const [file, setFile] = useState()
+    const [displayState, setDisplayState] = useState(true)
 
-    function handleChange(event) {
-        setFile(event.target.files[0])
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault()
-        const url = 'http://localhost:8000/uploadFile';
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('fileName', file.name);
-        const config = {
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-        };
-        axios.post(url, formData, config).then((response) => {
-            window.open(response.data, "_blank")
-        }).catch((error) => {
-            console.log(error,'error');
-        });
-    
-    }
     return (
-    <div>
-        <form onSubmit={handleSubmit}>
-            <h1>React File Upload</h1>
-            <input type="file" onChange={handleChange}/>
-            <button type="submit">Upload</button>
-        </form>
+    <div className="home">
+        <div className="left-section">
+            <div className="title">
+               <h1>Initiative-X</h1>
+            </div>
+            <div className="sections">
+                <ul className="section-bullets">
+                    <li onClick={(e)=>setDisplayState(!displayState)}>KT generator</li>
+                    <li onClick={(e)=>setDisplayState(!displayState)}>Contract Checker</li>
+                </ul>
+            </div>
+        </div>
+        {displayState && <KTdoc/>}
+        {!displayState && <ContractChecker/>}
     </div>
     );
 }

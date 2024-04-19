@@ -1,0 +1,31 @@
+.home{
+    display: flex;
+    flex-direction: row;
+}
+
+.left-section{
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-bullets{
+    list-style-type: none;
+    padding-left: 0%;
+}
+
+.section-bullets li{
+    margin-bottom: 1rem;
+}
+
+.title{
+    background-color:#2ea44f ;
+    color: white;
+    height: 10vh;
+}
+
+.sections{
+    background-color: aliceblue;
+    height:90vh;
+}

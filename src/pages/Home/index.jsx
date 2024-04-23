@@ -6,7 +6,7 @@ import ContractChecker from "../../components/ContractChecker";
 
 
 function Home() {
-    const [displayState, setDisplayState] = useState(true)
+    const [displayState, setDisplayState] = useState("KTdoc")
 
     return (
     <div className="home">
@@ -16,13 +16,13 @@ function Home() {
             </div>
             <div className="sections">
                 <ul className="section-bullets">
-                    <li onClick={(e)=>setDisplayState(!displayState)}>KT generator</li>
-                    <li onClick={(e)=>setDisplayState(!displayState)}>Contract Checker</li>
+                    <li onClick={(e)=>setDisplayState("KTdoc")}>KT generator</li>
+                    <li onClick={(e)=>setDisplayState("Contract")}>Contract Checker</li>
                 </ul>
             </div>
         </div>
-        {displayState && <KTdoc/>}
-        {!displayState && <ContractChecker/>}
+        {displayState==='KTdoc' && <KTdoc/>}
+        {displayState==='Contract' && <ContractChecker/>}
     </div>
     );
 }

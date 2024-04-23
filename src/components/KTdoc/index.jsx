@@ -1,6 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import axios from 'axios';
 import './style.css';
+import img from '../../public/icons/download.png'
 
 
 function KTdoc(){
@@ -9,10 +10,19 @@ function KTdoc(){
     const [fileState, setFileState] = useState('Upload')
     const [checkDocumentationState, setCheckDocumentationState] = useState(false)
     const [checkTranscriptState, setCheckTranscriptState] = useState(false)
+    const [files,setFiles]=useState([])
 
     function handleChange(event) {
         setFile(event.target.files[0])
     }
+
+    useEffect(()=>{
+        axios.get('http://localhost:8000/files').then((response) => {
+            setFiles(response.data)
+        }).catch((error) => {
+            console.log(error,'error');
+        })
+    },[fileState])
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -78,20 +88,49 @@ function KTdoc(){
         })
     }
 
+    function downloadAnyFile(file) {
+        axios.post('http://localhost:8000/download', {s3_object_url: file.s3_url}).then((response) => {
+            window.open(response.data.url)
+        }).catch((error) => {
+            console.log(error,'error');
+        })
+    }
+
     return (
-        <div className="kt-body">
-            {fileState==='Upload' && <div>
-                <form onSubmit={handleSubmit}>
-                    <h1>KT Video Upload</h1>
-                    <input type="file" onChange={handleChange}/>
-                    <button className="button-3" type="submit">Upload</button>
-                </form>
-            </div>}
-            {fileState==='Uploaded' && <div>
-                {!checkDocumentationState && <button className="button-3" onClick={checkDocumentation}>Check Documentation</button>}
-                {!checkTranscriptState && <button className="button-3" onClick={checkTranscript}>Check Transcript</button>}
-                {checkDocumentationState && <button className="button-3" onClick={downloadDocumentation}>Download Documentation</button>}
-                {checkTranscriptState && <button className="button-3" onClick={downloadTranscript}>Download Transcript</button>}
+        <div>
+            <div className="kt-body">
+                {fileState==='Upload' && <div>
+                    <form onSubmit={handleSubmit}>
+                        <h1>KT Video Upload</h1>
+                        <input type="file" onChange={handleChange}/>
+                        <button className="button-3" type="submit">Upload</button>
+                    </form>
+                </div>}
+                {fileState==='Uploaded' && <div>
+                    {!checkDocumentationState && <button className="button-3" onClick={checkDocumentation}>Check Documentation</button>}
+                    {!checkTranscriptState && <button className="button-3" onClick={checkTranscript}>Check Transcript</button>}
+                    {checkDocumentationState && <button className="button-3" onClick={downloadDocumentation}>Download Documentation</button>}
+                    {checkTranscriptState && <button className="button-3" onClick={downloadTranscript}>Download Transcript</button>}
+                </div>}
+            </div>
+            {files.length!==0 && <div>
+                <table>
+                    <tr>
+                        <th>File Name</th>
+                        <th>File Type</th>
+                    </tr>
+                    {files.map((file) => {
+                        return (
+                            <tr>
+                                <td>
+                                    {file.filename}
+                                    {file.is_processed && <img onClick={()=>downloadAnyFile(file)} src={img} alt="img" width="25px" height="25px"/>}
+                                </td>
+                                <td>{file.type}</td>
+                            </tr>
+                        )
+                    })}
+                </table>
             </div>}
         </div>
     );

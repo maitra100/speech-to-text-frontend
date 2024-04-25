@@ -66,7 +66,82 @@ table {
   border-collapse: collapse;
 }
 
-table, th, td {
-  border: 1px solid;
+table, th{
+  /* border: 1px solid; */
   margin: 1rem;
+}
+
+td{
+  /* margin: 1rem; */
+  /* border: 1px solid; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+tr{
+  padding: 5px;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.output{
+  display: flex;
+}
+
+#title {
+  text-align: center;
+}
+
+#employee {
+  border-collapse: collapse;
+  border: 3px solid #ddd;
+}
+
+#employee td,
+#employee th {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+#employee tr:hover {
+  background-color: #ddd;
+}
+
+#employee th {
+  padding: 10px;
+  text-align: center;
+  background-color: #4caf50;
+  color: white;
+}
+
+.operation {
+  text-align: center;
+}
+
+.button {
+  border: none;
+  outline: none;
+  font-size: 11px;
+  font-family: "Quicksand", sans-serif;
+  color: #f44336;
+  padding: 3px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #f44336;
+  background-color: transparent;
+}
+
+.button:active {
+  border: 1px solid blue;
+}
+
+.kt-layout{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.file-input{
+  padding: 3px;
 }

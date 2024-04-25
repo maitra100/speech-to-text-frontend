@@ -20,12 +20,16 @@
 }
 
 .title{
-    background-color:#2ea44f ;
-    color: white;
+    background-color:#4caae4d8 ;
+    color: whitesmoke;
     height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sections{
-    background-color: aliceblue;
+    /* background-color: rgb(230, 243, 254); */
+    background-color: #edf4fb;
     height:90vh;
 }
